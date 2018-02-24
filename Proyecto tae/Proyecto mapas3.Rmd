@@ -12,8 +12,11 @@ Base3 <- shapefile("Accidentalidad_2017.shp",encoding="UTF-8",use_iconv=TRUE)
 Depuracion
 ```{r}
 Base3@data <- na.omit(Base3@data)
-
-#Base2@data$CLASE <- recode(Base2@data$CLASE, Atropello=="Atropello", Caída de Ocupante=="Caida #Ocupante", Caida Ocupante=="Caida Ocopante", Choque=="Choque", Incendio=="Incendio", #Otro=="Otro", Volcamineto=="Volcamineto", )
+library(rgdal)
+library(leaflet)
+library(leaflet.extras)
+library(raster)
+  
 ```
 
 ```{r}

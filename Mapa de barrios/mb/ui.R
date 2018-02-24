@@ -3,22 +3,23 @@ library(shiny)
 # Define UI for application that draws a histogram
 shinyUI(fluidPage(
   
-  # Application title
-  titlePanel("Old Faithful Geyser Data"),
+  # Give the page a title
+  titlePanel("Accidentes por barrio"),
   
-  # Sidebar with a slider input for number of bins 
-  sidebarLayout(
-    sidebarPanel(
-       sliderInput("bins",
-                   "Number of bins:",
-                   min = 1,
-                   max = 50,
-                   value = 30)
-    ),
+  # Generate a row with a sidebar
+  sidebarLayout(      
     
-    # Show a plot of the generated distribution
+    # Define the sidebar with one input
+    sidebarPanel(
+      selectInput("tipoAccidente", "Tipo de Accidente:", 
+                  choices=c("Atropello", "Otro")),
+      hr()
+      ),
+    
+    # Create a spot for the barplot
     mainPanel(
-       plotOutput("distPlot")
+      leafletOutput("mapb")  
     )
+    
   )
 ))
