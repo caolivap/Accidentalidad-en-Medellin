@@ -35,6 +35,7 @@ shinyServer(function(input, output) {
     m<-addLegend(m,"topright",pal=pal,values=Base3@data$CLASE, 
                  title="Tipo de accidente",
                  labels = Base3@data$CLASE,opacity = 1)
+    m
     
     # draw the histogram with the specified number of bins
     

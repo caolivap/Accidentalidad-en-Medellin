@@ -22,7 +22,6 @@ Depuracion
 ```{r}
 Base2@data <- na.omit(Base2@data)
 
-#Base2@data$CLASE <- recode(Base2@data$CLASE, Atropello=="Atropello", Caída de Ocupante=="Caida #Ocupante", Caida Ocupante=="Caida Ocopante", Choque=="Choque", Incendio=="Incendio", #Otro=="Otro", Volcamineto=="Volcamineto", )
 ```
 
 ```{r}
