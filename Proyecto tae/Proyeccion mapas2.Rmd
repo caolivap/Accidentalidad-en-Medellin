@@ -1,0 +1,60 @@
+---
+title: "Untitled"
+author: "Edwin Caicedo"
+date: "23 de febrero de 2018"
+output: html_document
+---
+
+```{r}
+library(rgdal)
+library(leaflet)
+library(raster)
+library(dplyr)
+```
+
+Analis de base de datos para tener alguna idea de la dinámica temporal y espacial de la accidentalidad en la ciudad de Medellín en la que están involucrados vehículos y automotores
+
+```{r}
+Base2 <- shapefile("Accidentalidad_2016.shp",encoding="UTF-8",use_iconv=TRUE)
+```
+
+Depuracion
+```{r}
+Base2@data <- na.omit(Base2@data)
+
+#Base2@data$CLASE <- recode(Base2@data$CLASE, Atropello=="Atropello", Caída de Ocupante=="Caida #Ocupante", Caida Ocupante=="Caida Ocopante", Choque=="Choque", Incendio=="Incendio", #Otro=="Otro", Volcamineto=="Volcamineto", )
+```
+
+```{r}
+#Paleta de colores
+unique(Base2@data$CLASE)
+pal <-colorFactor(palette=rainbow(8),levels=unique(Base2@data$CLASE),ordered=F)
+
+popup<-paste(Base2@data$CLASE,Base2@data$BARRIO,sep="<br/>")
+
+cbind(rainbow(8),unique(Base2@data$CLASE))
+
+popup<-paste(Base2@data$CLASE,Base2@data$BARRIO,sep="<br/>")
+
+m<-leaflet()
+m<-fitBounds(m, lng1=min(Base2@coords[,1]), 
+             lat1=min(Base2@coords[,2]), 
+             lng2=max(Base2@coords[,1]),
+             lat2=max(Base2@coords[,2]))
+m<-addProviderTiles(m,provider="OpenStreetMap.Mapnik")
+m<-addCircleMarkers(m,
+                    lng = Base2@coords[,1],
+                     lat = Base2@coords[,2],
+                     popup = popup, 
+                     radius = 2, 
+                     stroke = FALSE,
+                    color=pal(Base2@data$CLASE),
+                     fillOpacity = 0.75
+                     )
+m<-addLegend(m,"topright",pal=pal,values=Base2@data$CLASE, 
+             title="Tipo de accidente",
+             labels = Base2@data$CLASE,opacity = 1)
+
+m
+```
+
