@@ -1,4 +1,8 @@
 library(shiny)
+library(leaflet)
+library(leaflet.extras)
+library(rgdal)
+library(raster)
 
 # Define UI for application that draws a histogram
 shinyUI(fluidPage(

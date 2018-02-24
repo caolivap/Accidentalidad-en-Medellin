@@ -1,19 +1,19 @@
 # Librerias necesarias 
 
-library(rgdal)
-library(leaflet)
-library(leaflet.extras)
-library(raster)
-library(shiny)
 
-# generate bins based on input$bins from ui.R
-Base3 <- shapefile("Accidentalidad_2017.shp",encoding="UTF-8",use_iconv=TRUE) 
-
-unique(Base3@data$CLASE)
 
 shinyServer(function(input, output) {
   
- 
+  library(rgdal)
+  library(leaflet)
+  library(leaflet.extras)
+  library(raster)
+  library(shiny)
+  
+    # generate bins based on input$bins from ui.R
+    Base3 <- shapefile("Accidentalidad_2017.shp",encoding="UTF-8",use_iconv=TRUE) 
+  
+    unique(Base3@data$CLASE)
     pal <-colorFactor(palette=rainbow(8),levels=unique(Base3@data$CLASE),ordered=F)
     
     popup<-paste(Base3@data$CLASE,Base3@data$BARRIO,sep="<br/>")
