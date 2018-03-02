@@ -17,7 +17,7 @@ shinyUI(fluidPage(
     sidebarPanel(
     
       selectInput("tipoAccidente", "Tipo de Accidente:", 
-                  choices=c("Atropello", "Otro")),
+                  choices=c("Atropello", "Otro", "Caida ocupante")),
       hr()
       ),
     

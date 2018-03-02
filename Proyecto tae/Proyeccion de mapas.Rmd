@@ -1,0 +1,73 @@
+---
+title: "Avance trabajo"
+output: html_notebook
+---
+Analisisde base de datos 
+```{r}
+library(rgdal)
+library(leaflet)
+library(raster)
+library(dplyr)
+```
+
+Analis de base de datos para tener alguna idea de la dinámica temporal y espacial de la accidentalidad en la ciudad de Medellín en la que están involucrados vehículos y automotores
+
+```{r}
+
+Base1 <- shapefile("Accidentalidad_2015.shp",encoding="UTF-8",use_iconv=TRUE)
+```
+
+Depuracion
+```{r}
+Base1@data <- na.omit(Base1@data)
+```
+
+
+```{r}
+#Paleta de colores
+unique(Base1@data$CLASE)
+pal <-colorFactor(palette=rainbow(8),levels=unique(Base1@data$CLASE),ordered=F)
+
+popup<-paste(Base1@data$CLASE,Base1@data$BARRIO,sep="<br/>")
+
+cbind(rainbow(8),unique(Base1@data$CLASE))
+
+popup<-paste(Base1@data$CLASE,Base1@data$BARRIO,sep="<br/>")
+
+m<-leaflet()
+m<-fitBounds(m, lng1=min(Base1@coords[,1]), 
+             lat1=min(Base1@coords[,2]), 
+             lng2=max(Base1@coords[,1]),
+             lat2=max(Base1@coords[,2]))
+m<-addProviderTiles(m,provider="OpenStreetMap.Mapnik")
+m<-addCircleMarkers(m,
+                    lng = Base1@coords[,1],
+                     lat = Base1@coords[,2],
+                     popup = popup, 
+                     radius = 2, 
+                     stroke = FALSE,
+                    color=pal(Base1@data$CLASE),
+                     fillOpacity = 0.75
+                     )
+m<-addLegend(m,"topright",pal=pal,values=Base1@data$CLASE, 
+             title="Tipo de accidente",
+             labels = Base1@data$CLASE,opacity = 1)
+
+m
+```
+
+Segundo mapa
+```{r}
+m1<-leaflet()
+m1<-fitBounds(m1, lng1=min(Base1@coords[,1]), 
+             lat1=min(Base1@coords[,2]), 
+             lng2=max(Base1@coords[,1]),
+             lat2=max(Base1@coords[,2]))
+m1<-addProviderTiles(m1,provider="OpenStreetMap.Mapnik")
+m1<-addWebGLHeatmap(m1,lng=Base1@coords[,1],
+                    lat = Base1@coords[,2],
+                      size=250,units="m",
+                      opacity=0.8,alphaRange=0.5)
+m1
+```
+

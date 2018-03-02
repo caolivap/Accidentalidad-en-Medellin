@@ -12,7 +12,6 @@ shinyServer(function(input, output) {
   
     # generate bins based on input$bins from ui.R
     Base3 <- shapefile("Accidentalidad_2017.shp",encoding="UTF-8",use_iconv=TRUE) 
-  
     unique(Base3@data$CLASE)
     pal <-colorFactor(palette=rainbow(8),levels=unique(Base3@data$CLASE),ordered=F)
     
