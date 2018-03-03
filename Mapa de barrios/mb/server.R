@@ -11,34 +11,35 @@ shinyServer(function(input, output) {
   library(shiny)
   
     # generate bins based on input$bins from ui.R
-    Base3 <- shapefile("Accidentalidad_2017.shp",encoding="UTF-8",use_iconv=TRUE) 
-    unique(Base3@data$CLASE)
-    pal <-colorFactor(palette=rainbow(8),levels=unique(Base3@data$CLASE),ordered=F)
+    Base1 <- shapefile("Accidentalidad_2015.shp",encoding="UTF-8",use_iconv=TRUE) 
+    Base <- subset(Base1, Base1@data$CLASE=="tipoAccidente")
+    unique(Base@data$CLASE)
+    pal <-colorFactor(palette=rainbow(8),levels=unique(Base@data$CLASE),ordered=F)
     
-    popup<-paste(Base3@data$CLASE,Base3@data$BARRIO,sep="<br/>")
+    popup<-paste(Base@data$CLASE,Base@data$BARRIO,sep="<br/>")
     
-    cbind(rainbow(8),unique(Base3@data$CLASE))
+    cbind(rainbow(8),unique(Base@data$CLASE))
     
-    popup<-paste(Base3@data$CLASE,Base3@data$BARRIO,sep="<br/>")
+    popup<-paste(Base@data$CLASE,Base@data$BARRIO,sep="<br/>")
     
     m<-leaflet()
-    m<-fitBounds(m, lng1=min(Base3@coords[,1]), 
-                 lat1=min(Base3@coords[,2]), 
-                 lng2=max(Base3@coords[,1]),
-                 lat2=max(Base3@coords[,2]))
+    m<-fitBounds(m, lng1=min(Base@coords[,1]), 
+                 lat1=min(Base@coords[,2]), 
+                 lng2=max(Base@coords[,1]),
+                 lat2=max(Base@coords[,2]))
     m<-addProviderTiles(m,provider="OpenStreetMap.Mapnik")
     m<-addCircleMarkers(m,
-                        lng = Base3@coords[,1],
-                        lat = Base3@coords[,2],
+                        lng = Base@coords[,1],
+                        lat = Base@coords[,2],
                         popup = popup, 
                         radius = 2, 
                         stroke = FALSE,
-                        color=pal(Base3@data$CLASE),
+                        color=pal(Base@data$CLASE),
                         fillOpacity = 0.75
     )
-    m<-addLegend(m,"topright",pal=pal,values=Base3@data$CLASE, 
+    m<-addLegend(m,"topright",pal=pal,values=Base@data$CLASE, 
                  title="Tipo de accidente",
-                 labels = Base3@data$CLASE,opacity = 1)
+                 labels = Base@data$CLASE,opacity = 1)
     m
     
     
