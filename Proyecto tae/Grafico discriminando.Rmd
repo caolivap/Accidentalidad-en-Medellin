@@ -5,9 +5,7 @@ date: "3 de marzo de 2018"
 output: html_document
 ---
 ```{r}
-library(rgdal)
 library(leaflet)
-library(raster)
 library(lubridate)
 ```
 
@@ -20,7 +18,7 @@ base1 <- shapefile("Accidentalidad_2017.shp",encoding="UTF-8",use_iconv=TRUE)
 
 
 ```{r}
-base <- base1@data[-c(1,2,3,4,5,8,10,11,12,13,15,16,17)]
+base <- base1@data[-c(1,2,3,4,5,10,11,12,13)]
 base <- na.omit(base)
 base$DIA <- as.factor(base$DIA)
 base$HORA <- as.factor((base$HORA))
@@ -29,5 +27,7 @@ base$GRAVEDAD <- as.factor(base$GRAVEDAD)
 
 ```
 
+```{r}
 
+```
 
