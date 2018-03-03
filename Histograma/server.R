@@ -1,51 +1,26 @@
 # Librerias necesarias 
+library(lubridate)
 
-library(rgdal)
-library(leaflet)
-library(raster)
-library(shiny)
-library(leaflet.extras)
 
 
 shinyServer(function(input, output) {
-  Map <- reactive({
-  BaseName <- paste("Accidentalidad_", input$Anio, ".shp", sep="")
-  BaseFull <- shapefile(BaseName, encoding="UTF-8",use_iconv=TRUE)
-  Base <- subset(BaseFull, BaseFull@data$CLASE==input$TipoAccidente) 
+  
+  base <- read.csv("Accidentalidad_2015.csv", encoding="UTF-8")
+  base <- base[-c(1,2,3,4,5,8,10,11,12,13,15,16,17)]
+  base$HORA <- hour(hm(base$HORA))
+  
+  output$Histograma <- renderPlot({
 
-  
-  #Paleta de colores
-  unique(Base$CLASE)
-  pal <-colorFactor(palette=rainbow(8),levels=unique(Base3$GRAVEDAD),ordered=F)
-  
-  cbind(rainbow(8),unique(Base3$GRAVEDAD))
-  
-  popup<-paste(sep="<br/>", Base$BARRIO, Base$COMUNA)
-  
-  
-  m<-leaflet()
-  m<-fitBounds(m, lng1=min(Base@coords[,1]), 
-               lat1=min(Base@coords[,2]), 
-               lng2=max(Base@coords[,1]),
-               lat2=max(Base@coords[,2]))
-  m<-addProviderTiles(m,provider="OpenStreetMap.Mapnik")
-  m<-addCircleMarkers(m,
-                      lng = Base@coords[,1],
-                      lat = Base@coords[,2],
-                      popup = popup, 
-                      radius = 5, 
-                      stroke = FALSE,
-                      color=pal(Base$GRAVEDAD),
-                      fillOpacity = 0.75
-  )
-  m <- addLegend(m, "bottomright", pal = pal, values = Base@data$GRAVEDAD,
-                 title = "Gravedad",
-                 labels = Base@data$GRAVEDAD, opacity = 1)
-  
+    base <- subset(base, base$CLASE==input$TipoAccidente)
+    base <- subset(base, base$DIA==input$Dia)
+    base <- subset(base, base$GRAVEDAD==input$Gravedad)
+    
+    validate(
+      need(base$HORA, 'No hay datos registrados para las entradas seleccionadas.')
+    )
+    
+    hist(base$HORA)
+
   })
-  output$Mapa2017 <- renderLeaflet({
-    Map()
-  })
-  
   
 })

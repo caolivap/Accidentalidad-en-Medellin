@@ -14,3 +14,4 @@ hist(horas2015)
 lines(hist(horas2015)$counts, type = "overplotted", pch=1, main = "Cantidad accidentes")
 lines(hist(horas2015)$counts, type = "overplotted", pch=1, main = "Cantidad accidentes", col="red")
 lines(hist(horas2015)$counts, type = "overplotted", pch=2, main = "Cantidad accidentes", col="red")
+
