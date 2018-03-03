@@ -17,9 +17,6 @@ Base3 <- shapefile("Accidentalidad_2017.shp",encoding="UTF-8",use_iconv=TRUE)
 
 Depuracion
 ```{r}
-Base3 <- na.omit(Base3@data)
-Base3<- as.factor(Base3@data$CLASE)
-
 Base <- subset(Base3, Base3@data$CLASE=="Choque")
 ```
 
