@@ -15,9 +15,9 @@ library(raster)
 Base3 <- shapefile("Accidentalidad_2017.shp",encoding="UTF-8",use_iconv=TRUE)
 ```
 
-Depuracion
+Filtrado de Base
 ```{r}
-Base <- subset(Base3, Base3@data$CLASE=="Choque")
+Base <- subset(Base3, Base3@data$CLASE=="Incendio")
 ```
 
 ```{r}
@@ -40,7 +40,7 @@ m<-addCircleMarkers(m,
                     lng = Base@coords[,1],
                      lat = Base@coords[,2],
                      popup = popup, 
-                     radius = 2, 
+                     radius = 4, 
                      stroke = FALSE,
                     color=pal(Base$CLASE),
                      fillOpacity = 0.75
