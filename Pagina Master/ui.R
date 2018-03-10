@@ -1,4 +1,14 @@
 
+library(shiny)
+library(utf8)
+library(shinythemes)
+library(leaflet)
+library(leaflet.extras)
+library(rgdal)
+library(raster)
+
+#Base de datos para el MAPA ##################
+BaseFull <- shapefile("Accidentalidad_2017.shp",encoding="UTF-8",use_iconv=TRUE)
 
 # Define UI for application that draws a histogram
 shinyUI(navbarPage(theme = shinytheme("superhero"), title =  "ACCIDENTALIDAD EN MEDELLIN",
@@ -57,24 +67,23 @@ shinyUI(navbarPage(theme = shinytheme("superhero"), title =  "ACCIDENTALIDAD EN 
                             )
                    ),
                    tabPanel("Mapa",
-                            sidebarLayout(      
-                              
-                              # Define the sidebar with one input
-                              sidebarPanel(
-                                
-                                selectInput("tipoAccidente", "Tipo de Accidente:", 
-                                            choices=c("Atropello", "Otro")),
-                                hr()
-                              ),
-                              
-                              # Create a spot for the barplot
-                              mainPanel(
-                                
-                                leafletOutput("mapb")  
-                                
-                              )
+                            
+                            column(2,
+                                   wellPanel(
+                                     selectInput("Gravedad", "Gravedad del accidente",
+                                                 BaseFull$GRAVEDAD, BaseFull$GRAVEDAD[0]
+                                     ),
+                                     selectInput("Anio", "Anio",
+                                                 c("2015", "2016", "2017"), "2017"
+                                     )
+                                   )       
+                            ),
+                            
+                            column(10,
+                                   leafletOutput("Mapa")
+                            )
                               
                             )
                    )
-          )
-)
+        )
+

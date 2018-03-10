@@ -11,7 +11,7 @@ BaseFull <- shapefile("Accidentalidad_2017.shp",encoding="UTF-8",use_iconv=TRUE)
 shinyUI(fluidPage(
 
   mainPanel(
-    leafletOutput("Mapa2017")
+    leafletOutput("Mapa")
   ),
   
   absolutePanel(top = 10, right = 10,
