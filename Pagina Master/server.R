@@ -12,6 +12,8 @@ library(leaflet.extras)
 library(rgdal)
 library(raster)
 library(shinycssloaders)
+library(ggplot2)
+library(plotly)
 
 # Define server logic required to draw a histogram
 shinyServer(function(input, output) {
@@ -38,9 +40,9 @@ shinyServer(function(input, output) {
   #Generacion del Mapa:
   
   Map <- reactive({
-    BaseName <- paste("Accidentalidad_", input$Anio, ".shp", sep="")
+    BaseName <- paste("Accidentalidad_", input$AnioMapa, ".shp", sep="")
     BaseFull <- shapefile(BaseName, encoding="UTF-8",use_iconv=TRUE)
-    Base <- subset(BaseFull, BaseFull@data$GRAVEDAD==input$Gravedad) 
+    Base <- subset(BaseFull, BaseFull@data$GRAVEDAD==input$GravedadMapa) 
     
     
     #Paleta de colores
@@ -73,13 +75,15 @@ shinyServer(function(input, output) {
   #######################################################################
   #Generacion del HISTOGRAMA:
   
-  BaseHist <- read.csv("Accidentalidad_161718.csv", encoding="UTF-8")
+
   
   output$Histograma <- renderPlotly({
     
-    var1 <- reactive({input$TipoAccidente})
-    var2 <- reactive({input$Dia})
-    var3 <- reactive({input$Gravedad})
+    BaseHist <- read.csv("Accidentalidad_161718.csv", encoding="UTF-8")
+    
+    var1 <- reactive({input$TipoAccidenteHist})
+    var2 <- reactive({input$DiaHist})
+    var3 <- reactive({input$GravedadHist})
     
     subsetBase1 <- reactive({
       if(var1() == "Todos")

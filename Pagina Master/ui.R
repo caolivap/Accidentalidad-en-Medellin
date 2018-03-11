@@ -7,10 +7,15 @@ library(leaflet.extras)
 library(rgdal)
 library(raster)
 library(shinycssloaders)
+library(ggplot2)
+library(plotly)
 
 #Base de datos para el MAPA ##################
-BaseMapa <- shapefile("Accidentalidad_2017.shp",encoding="UTF-8",use_iconv=TRUE)
+BaseFull <- shapefile("Accidentalidad_2017.shp",encoding="UTF-8",use_iconv=TRUE)
+
+#Base de datos para el Historial
 BaseHist <- read.csv("Accidentalidad_161718.csv", encoding="UTF-8")
+
 
 # Define UI for application that draws a histogram
 shinyUI(navbarPage(theme = shinytheme("superhero"), title =  "ACCIDENTALIDAD EN MEDELLIN",
@@ -57,23 +62,42 @@ shinyUI(navbarPage(theme = shinytheme("superhero"), title =  "ACCIDENTALIDAD EN 
                               )
                             )
                    ),
+                   tabPanel("Mapa",
+                            
+                            column(2,
+                                   wellPanel(
+                                     selectInput("GravedadMapa", "Gravedad del accidente",
+                                                 BaseFull$GRAVEDAD, BaseFull$GRAVEDAD[0]
+                                     ),
+                                     selectInput("AnioMapa", "Anio",
+                                                 c("2015", "2016", "2017"), "2017"
+                                     )
+                                   )       
+                            ),
+                            
+                            column(10,
+                                   withSpinner(leafletOutput("Mapa"))
+                            )
+                            
+                   ),
+                   
                    tabPanel("Historial",
                             
                             column(2,
                                    # Input: Selector for choosing dataset ----
-                                   selectInput(inputId = "TipoAccidente",
+                                   selectInput(inputId = "TipoAccidenteHist",
                                                label = "Tipo de Accidente:",
                                                choices = c(levels(BaseHist$CLASE), "Todos"),
                                                selected = "Todos"),
                                    
                                    # Input: Selector for choosing dataset ----
-                                   selectInput(inputId = "Dia",
+                                   selectInput(inputId = "DiaHist",
                                                label = "Dia:",
                                                choices = c(levels(BaseHist$DIA), "Todos"),
                                                selected = "Todos"),
                                    
                                    # Input: Selector for choosing dataset ----
-                                   selectInput(inputId = "Gravedad",
+                                   selectInput(inputId = "GravedadHist",
                                                label = "Gravedad:",
                                                choices = c(levels(BaseHist$GRAVEDAD), "Todos"),
                                                selected = "Todos"
@@ -86,24 +110,6 @@ shinyUI(navbarPage(theme = shinytheme("superhero"), title =  "ACCIDENTALIDAD EN 
                             
                    ),
                    
-                   tabPanel("Mapa",
-                            
-                            column(2,
-                                   wellPanel(
-                                     selectInput("Gravedad", "Gravedad del accidente",
-                                                 BaseMapa$GRAVEDAD, BaseMapa$GRAVEDAD[0]
-                                     ),
-                                     selectInput("Anio", "Anio",
-                                                 c("2015", "2016", "2017"), "2017"
-                                     )
-                                   )       
-                            ),
-                            
-                            column(10,
-                                   withSpinner(leafletOutput("Mapa"))
-                            )
-                            
-                   ),
                    
                    tabPanel("Video",
                             mainPanel(
