@@ -1,4 +1,4 @@
-#cargar base de datos
+#cargar bases de datos
 data2015 <- read.csv("Datos/Accidentalidad_2015_depurada.csv", encoding="UTF-8")
 data2016 <- read.csv("Datos/Accidentalidad_2016_depurada.csv", encoding="UTF-8")
 data2017 <- read.csv("Datos/Accidentalidad_2017_depurada.csv")
@@ -43,13 +43,6 @@ shinyServer(function(input, output) {
     BaseName <- paste("Accidentalidad_", input$AnioMapa, ".shp", sep="")
     BaseFull <- shapefile(BaseName, encoding="UTF-8",use_iconv=TRUE)
     Base <- subset(BaseFull, BaseFull@data$GRAVEDAD==input$GravedadMapa) 
-    
-    
-    #Paleta de colores
-    #unique(Base$CLASE)
-    #pal <-colorFactor(palette=rainbow(8),levels=unique(Base3$GRAVEDAD),ordered=F)
-    
-    #cbind(rainbow(8),unique(Base3$GRAVEDAD))
     
     popup<-paste(sep="<br/>","<font color='black'>",Base$BARRIO,"</font>",
                  "<font color='black'>",Base$COMUNA,"</font>")

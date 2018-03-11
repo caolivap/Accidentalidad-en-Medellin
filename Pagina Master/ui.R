@@ -17,14 +17,9 @@ BaseFull <- shapefile("Accidentalidad_2017.shp",encoding="UTF-8",use_iconv=TRUE)
 #Base de datos para el Historial
 BaseHist <- read.csv("Accidentalidad_161718.csv", encoding="UTF-8")
 
-
-# Define UI for application that draws a histogram
 shinyUI(navbarPage(theme = shinytheme("superhero"), title =  "ACCIDENTALIDAD EN MEDELLIN",
                    tabPanel("Inicio",
-                            # App title ----
-                            #titlePanel("Resumen Descriptivo"),
                             
-                            # Sidebar layout with input and output definitions ----
                             titlePanel(p(em("Bienvenidos a nuestra aplicacion"))),
                             sidebarLayout(position="left",
                                           sidebarPanel(h4("Universidad Nacional de Colombia",br(),
