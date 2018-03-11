@@ -9,6 +9,7 @@ library(raster)
 library(shinycssloaders)
 library(ggplot2)
 library(plotly)
+library(utf8)
 
 #Base de datos para el MAPA ##################
 BaseFull <- shapefile("Accidentalidad_2017.shp",encoding="UTF-8",use_iconv=TRUE)
@@ -30,11 +31,11 @@ shinyUI(navbarPage(theme = shinytheme("superhero"), title =  "ACCIDENTALIDAD EN 
                               sidebarPanel(
                                 
                                 # Input: Select a dataset ----
-                                selectInput("dataset", "Escoge el año:",
+                                selectInput("dataset", "Escoge el aÃ±o:",
                                             choices = c("2015", "2016", "2017")),
                                 
                                 # Input: Specify the number of observations to view ----
-                                numericInput("obs", "Número de observaciones que quieres ver:", 10),
+                                numericInput("obs", "NÃºmero de observaciones que quieres ver:", 10),
                                 
                                 # Include clarifying text ----
                                 helpText("

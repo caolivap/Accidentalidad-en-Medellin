@@ -51,7 +51,8 @@ shinyServer(function(input, output) {
     
     #cbind(rainbow(8),unique(Base3$GRAVEDAD))
     
-    popup<-paste(sep="<br/>", Base$BARRIO, Base$COMUNA)
+    popup<-paste(sep="<br/>","<font color='black'>",Base$BARRIO,"</font>",
+                 "<font color='black'>",Base$COMUNA,"</font>")
     
     
     m<-leaflet()
