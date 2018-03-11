@@ -25,43 +25,25 @@ shinyUI(navbarPage(theme = shinytheme("superhero"), title =  "ACCIDENTALIDAD EN 
                             #titlePanel("Resumen Descriptivo"),
                             
                             # Sidebar layout with input and output definitions ----
-                            sidebarLayout(
-                              
-                              # Sidebar panel for inputs ----
-                              sidebarPanel(
-                                
-                                # Input: Select a dataset ----
-                                selectInput("dataset", "Escoge el aÃ±o:",
-                                            choices = c("2015", "2016", "2017")),
-                                
-                                # Input: Specify the number of observations to view ----
-                                numericInput("obs", "NÃºmero de observaciones que quieres ver:", 10),
-                                
-                                # Include clarifying text ----
-                                helpText("
-                                         Nota: aunque la vista de datos mostrara solo el numero especificado de observaciones,
-                                         el resumen seguira basandose en el conjunto de datos completo."),
-                                
-                                # Input: actionButton() to defer the rendering of output ----
-                                # until the user explicitly clicks the button (rather than
-                                # doing it immediately when inputs change). This is useful if
-                                # the computations required to render output are inordinately
-                                # time-consuming.
-                                actionButton("update", "Actualizar")
-                                
-                              ),
-                              # Main panel for displaying outputs ----
-                              mainPanel(
-                                
-                                # Output: Header + summary of distribution ----
-                                h4("Summary"),
-                                verbatimTextOutput("summary"),
-                                tags$video(HTML('<iframe width="560" height="315" src="https://www.youtube.com/embed/6F5_jbBmeJU" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>')),
-                                # Output: Header + table of distribution ----
-                                h4("Observaciones"),
-                                tableOutput("view")
-                              )
-                            )
+                            titlePanel(p(em("Bienvenidos a nuestra aplicacion"))),
+                            sidebarLayout(position="left",
+                                          sidebarPanel(h4("Universidad Nacional de Colombia",br(),
+                                                          "Sede Medellin"),br(),
+                                                       img(src="unal.png",height = 150, width = 150),br(),br(),
+                                                       em("Desarrollado por:"),br(),
+                                                       "Caicedo Chamorro Edwin Alexander",br(),
+                                                       "Lopez Velez Eliana Maria",br(),
+                                                       "Oliva Paredes Carlos Armando",br(),
+                                                       "Ramirez Echeverri Juan Pablo",br(),
+                                                       "Toro Zuluaga Santiago"),
+                                          mainPanel(h2("Enfoque de la Aplicacion"),br(),"Medellín es una de las ciudades
+                                                    donde la mayoría de personas tienen transporte particular, ya sea moto o carro, pero son muy 
+                                                    pocas las personas que acatan todas las normas y son responsables a la hora de hacer uso de este.
+                                                    Con esta aplicación se busca dar una guía para hacer más eficiente la distribución actual de 
+                                                    servicios de primeros auxilios prestados por la Secretaria de Salud a las personas afectadas 
+                                                    gravemente en accidentes en la ciudad")
+                                          
+                                          )
                    ),
                    tabPanel("Mapa",
                             
@@ -82,7 +64,7 @@ shinyUI(navbarPage(theme = shinytheme("superhero"), title =  "ACCIDENTALIDAD EN 
                             
                    ),
                    
-                   tabPanel("Historial",
+                   tabPanel("Histograma",
                             
                             column(2,
                                    # Input: Selector for choosing dataset ----
@@ -115,11 +97,12 @@ shinyUI(navbarPage(theme = shinytheme("superhero"), title =  "ACCIDENTALIDAD EN 
                    tabPanel("Video",
                             mainPanel(
                               #tags$video(src = "video.mp4", controls = "controls")
-                              #tags$video(src = "Datos/video.mp4", type = "video/mp4", width = "500px", height = "500px", autoplay = NA, controls = NA),
+                              tags$video(src = "www/video.mp4", type = "video/mp4", width = "500px", height = "500px", autoplay = NA, controls = NA),
                               #knitr::include_graphics('img.jpg'), 
                               #tagList(tags$img(src = 'img.jpg', width = "500px", height = "500px")),#$img(src = 'img.jpg', width = "500px", height = "500px"),
                               #uiOutput("video")
-                              #tags$video(HTML('<iframe width="560" height="315" src="https://www.youtube.com/embed/6F5_jbBmeJU" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>'))
+                              #tags$video(HTML('<iframe width="560" height="315" src="https://www.youtube.com/embed/6F5_jbBmeJU" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>')),
+                              #tags$video(HTML('<iframe frameborder="0" width="560" height="315" src="https://biteable.com/watch/embed/accidentalidad-1791081" allowfullscreen="true"></iframe><p><a href="https://biteable.com/watch/accidentalidad-1791081">Accidentalidad</a> on <a href="https://biteable.com">Biteable</a>.</p>')),
                               tags$img(src = "img.jpg", width = "200px", height = "200px")
                             )
                    )

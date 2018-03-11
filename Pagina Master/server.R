@@ -1,8 +1,8 @@
 #cargar base de datos
-data2015 <- read.csv("Datos/Accidentalidad_2015_depurada.csv")
-data2016 <- read.csv("Datos/Accidentalidad_2016_depurada.csv")
+data2015 <- read.csv("Datos/Accidentalidad_2015_depurada.csv", encoding="UTF-8")
+data2016 <- read.csv("Datos/Accidentalidad_2016_depurada.csv", encoding="UTF-8")
 data2017 <- read.csv("Datos/Accidentalidad_2017_depurada.csv")
-
+data2017 <-data2017[,-c(1)]
 
 library(shiny)
 library(utf8)
@@ -128,21 +128,28 @@ shinyServer(function(input, output) {
       need(subsetBase3()$HORA, 'No hay datos registrados para las entradas seleccionadas.')
     )
     
-    Cantidad_accidentes<- hist(subsetBase3()$HORA)$counts
-    Hora_de_accidente<-levels(subsetBase3()$HORA)
+    y<- hist(subsetBase3()$HORA)$counts
+    x<-levels(subsetBase3()$HORA)
     
 
     
     
     plot_ly(data= subsetBase3(), 
-            x = Hora_de_accidente, 
-            y = Cantidad_accidentes,
-            type = 'scatter', symbols=~42,
-            mode = 'lines', color = I("red"), alpha = 0.7,
-            symbol=5) %>% 
-      layout(title = "Cantidad de Accidentes en Medellín por Hora",
-             autosize = T,
-             showlegend = FALSE)
+            x = x, 
+            y = y,
+            type = 'scatter', main= "Histograma **", symbols=~42,
+            mode = 'lines', color = I("red"), alpha = 0.7, 
+            symbol=5)%>%layout(title = "Hora vs Cantidad, Accidentes en Ciudad de Medellín",
+                               autosize = T,
+                               showlegend = F)%>%layout(xaxis = list(title="Hora de Accidente"),
+                                                        yaxis= list(title="Cantidad de Accidente")) %>%layout(xaxis = list(
+                                                          autotick = F,
+                                                          ticks = "outside",
+                                                          tick0 = 0,
+                                                          dtick = 1,
+                                                          ticklen = 1,
+                                                          tickwidth = 1,
+                                                          tickcolor = toRGB("black")))
     
   })
   
