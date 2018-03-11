@@ -34,7 +34,7 @@ shinyUI(navbarPage(theme = shinytheme("superhero"), title =  "ACCIDENTALIDAD EN 
                                                        "Lopez Velez Eliana Maria",br(),
                                                        "Oliva Paredes Carlos Armando",br(),
                                                        "Ramirez Echeverri Juan Pablo",br(),
-                                                       "Toro Zuluaga Santigo"),
+                                                       "Toro Zuluaga Santiago"),
                                           mainPanel(h2("Enfoque de la Aplicacion"),br(),"Medellín es una de las ciudades
                                                     donde la mayoría de personas tienen transporte particular, ya sea moto o carro, pero son muy 
                                                     pocas las personas que acatan todas las normas y son responsables a la hora de hacer uso de este.
@@ -96,11 +96,12 @@ shinyUI(navbarPage(theme = shinytheme("superhero"), title =  "ACCIDENTALIDAD EN 
                    tabPanel("Video",
                             mainPanel(
                               #tags$video(src = "video.mp4", controls = "controls")
-                              #tags$video(src = "Datos/video.mp4", type = "video/mp4", width = "500px", height = "500px", autoplay = NA, controls = NA),
+                              tags$video(src = "www/video.mp4", type = "video/mp4", width = "500px", height = "500px", autoplay = NA, controls = NA),
                               #knitr::include_graphics('img.jpg'), 
                               #tagList(tags$img(src = 'img.jpg', width = "500px", height = "500px")),#$img(src = 'img.jpg', width = "500px", height = "500px"),
                               #uiOutput("video")
-                              #tags$video(HTML('<iframe width="560" height="315" src="https://www.youtube.com/embed/6F5_jbBmeJU" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>'))
+                              #tags$video(HTML('<iframe width="560" height="315" src="https://www.youtube.com/embed/6F5_jbBmeJU" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>')),
+                              #tags$video(HTML('<iframe frameborder="0" width="560" height="315" src="https://biteable.com/watch/embed/accidentalidad-1791081" allowfullscreen="true"></iframe><p><a href="https://biteable.com/watch/accidentalidad-1791081">Accidentalidad</a> on <a href="https://biteable.com">Biteable</a>.</p>')),
                               tags$img(src = "img.jpg", width = "200px", height = "200px")
                             )
                    )
