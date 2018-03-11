@@ -43,7 +43,7 @@ shinyServer(function(input, output) {
                  labels = Base@data$GRAVEDAD, opacity = 1)
   
   })
-  output$Mapa2017 <- renderLeaflet({
+  output$Mapa <- renderLeaflet({
     Map()
   })
   
