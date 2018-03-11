@@ -17,10 +17,10 @@ BaseFull <- shapefile("Accidentalidad_2017.shp",encoding="UTF-8",use_iconv=TRUE)
 #Base de datos para el Historial
 BaseHist <- read.csv("Accidentalidad_161718.csv", encoding="UTF-8")
 
-shinyUI(navbarPage(theme = shinytheme("superhero"), title =  "ACCIDENTALIDAD EN MEDELLIN",
+shinyUI(navbarPage(theme = shinytheme("superhero"), title =  "ACCIDENTALIDAD EN MEDELLIN", 
                    tabPanel("Inicio",
                             
-                            titlePanel(p(em("Bienvenidos a nuestra aplicacion"))),
+                            titlePanel(p(em("Bienvenidos a nuestra aplicación"))),
                             sidebarLayout(position="left",
                                           sidebarPanel(h4("Universidad Nacional de Colombia",br(),
                                                           "Sede Medellin"),br(),
@@ -37,7 +37,8 @@ shinyUI(navbarPage(theme = shinytheme("superhero"), title =  "ACCIDENTALIDAD EN 
                                                     Con esta aplicación se busca dar una guía para hacer más eficiente la distribución actual de 
                                                     servicios de primeros auxilios prestados por la Secretaria de Salud a las personas afectadas 
                                                     gravemente en accidentes en la ciudad", br(), br(), br(),
-                                                    h4("Visita nuestro video tutorial y aprende el manejo de la página, haciendo ", a(href="https://biteable.com/watch/accidentalidad-1791081/", "Click aquí!"))
+                                                    h4("Visita nuestro video tutorial y aprende el manejo de la página, haciendo ",
+                                                    a(href="https://www.youtube.com/watch?v=68NFx84dUfg&feature=youtu.be", "Click aquí!"))
                                                 )
                                           )
                    ),
@@ -46,9 +47,9 @@ shinyUI(navbarPage(theme = shinytheme("superhero"), title =  "ACCIDENTALIDAD EN 
                             column(2,
                                    wellPanel(
                                      selectInput("GravedadMapa", "Gravedad del accidente",
-                                                 c("HERIDO","MUERTO", "SOLO DAÃOS"), BaseFull$GRAVEDAD[0]
+                                                 c("HERIDO","MUERTO", "SOLO DAÑOS"), BaseFull$GRAVEDAD[0]
                                      ),
-                                     selectInput("AnioMapa", "Anio",
+                                     selectInput("AnioMapa", "Año",
                                                  c("2015", "2016", "2017"), "2017"
                                      )
                                    )       
@@ -89,6 +90,6 @@ shinyUI(navbarPage(theme = shinytheme("superhero"), title =  "ACCIDENTALIDAD EN 
                             
                    )
                    
-)
+          )
 )
 
