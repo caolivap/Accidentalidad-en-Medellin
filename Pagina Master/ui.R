@@ -36,13 +36,14 @@ shinyUI(navbarPage(theme = shinytheme("superhero"), title =  "ACCIDENTALIDAD EN 
                                                        "Oliva Paredes Carlos Armando",br(),
                                                        "Ramirez Echeverri Juan Pablo",br(),
                                                        "Toro Zuluaga Santiago"),
-                                          mainPanel(h2("Enfoque de la Aplicacion"),br(),"MedellÃ­n es una de las ciudades
-                                                    donde la mayorÃ­a de personas tienen transporte particular, ya sea moto o carro, pero son muy 
+                                          mainPanel(h2("Enfoque de la Aplicacion"),br(),"Medellín es una de las ciudades
+                                                    donde la mayoría de personas tienen transporte particular, ya sea moto o carro, pero son muy 
                                                     pocas las personas que acatan todas las normas y son responsables a la hora de hacer uso de este.
-                                                    Con esta aplicaciÃ³n se busca dar una guÃ­a para hacer mÃ¡s eficiente la distribuciÃ³n actual de 
+                                                    Con esta aplicación se busca dar una guía para hacer más eficiente la distribución actual de 
                                                     servicios de primeros auxilios prestados por la Secretaria de Salud a las personas afectadas 
-                                                    gravemente en accidentes en la ciudad")
-                                          
+                                                    gravemente en accidentes en la ciudad", br(), br(), br(),
+                                                    h4("Visita nuestro video tutorial y aprende el manejo de la página, haciendo ", a(href="https://biteable.com/watch/accidentalidad-1791081/", "Click aquí!"))
+                                                )
                                           )
                    ),
                    tabPanel("Mapa",
@@ -91,21 +92,6 @@ shinyUI(navbarPage(theme = shinytheme("superhero"), title =  "ACCIDENTALIDAD EN 
                                    plotlyOutput("Histograma")
                             )
                             
-                   ),
-                   
-                   
-                   tabPanel("Video",
-                            mainPanel(
-                              #tags$video(src = "video.mp4", controls = "controls")
-                              #tags$video(src = "www/video.mp4", type = "video/mp4", width = "500px", height = "500px", autoplay = NA, controls = NA),
-                              #knitr::include_graphics('img.jpg'), 
-                              #tagList(tags$img(src = 'img.jpg', width = "500px", height = "500px")),#$img(src = 'img.jpg', width = "500px", height = "500px"),
-                              #uiOutput("video")
-                              #tags$video(HTML('<iframe width="560" height="315" src="https://www.youtube.com/embed/6F5_jbBmeJU" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>')),
-                              #tags$video(HTML('<iframe frameborder="0" width="560" height="315" src="https://biteable.com/watch/embed/accidentalidad-1791081" allowfullscreen="true"></iframe><p><a href="https://biteable.com/watch/accidentalidad-1791081">Accidentalidad</a> on <a href="https://biteable.com">Biteable</a>.</p>')),
-                              p("Para mas informacion visita nuestro video tutorial del manejo de la página", a(href="https://biteable.com/watch/accidentalidad-1791081/", "Click aquí!"))
-                              #tags$img(src = "img.jpg", width = "200px", height = "200px")
-                            )
                    )
                    
 )
