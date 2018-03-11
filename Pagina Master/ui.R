@@ -9,6 +9,7 @@ library(raster)
 library(shinycssloaders)
 library(ggplot2)
 library(plotly)
+library(utf8)
 
 #Base de datos para el MAPA ##################
 BaseFull <- shapefile("Accidentalidad_2017.shp",encoding="UTF-8",use_iconv=TRUE)
