@@ -16,9 +16,9 @@ shinyServer(function(input, output) {
   
   #Paleta de colores
   unique(Base$CLASE)
-  pal <-colorFactor(palette=rainbow(8),levels=unique(Base3$GRAVEDAD),ordered=F)
+  pal <-colorFactor(palette=rainbow(8),levels=unique(Base$GRAVEDAD),ordered=F)
   
-  cbind(rainbow(8),unique(Base3$GRAVEDAD))
+  cbind(rainbow(8),unique(Base$GRAVEDAD))
   
   popup<-paste(sep="<br/>", Base$BARRIO, Base$COMUNA)
   
