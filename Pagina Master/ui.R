@@ -63,7 +63,7 @@ shinyUI(navbarPage(theme = shinytheme("superhero"), title =  "ACCIDENTALIDAD EN 
                             
                    ),
                    
-                   tabPanel("Historial",
+                   tabPanel("Histograma",
                             
                             column(2,
                                    # Input: Selector for choosing dataset ----
