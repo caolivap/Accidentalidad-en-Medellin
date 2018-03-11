@@ -138,7 +138,7 @@ shinyServer(function(input, output) {
             y = y,
             type = 'scatter', main= "Histograma **", symbols=~42,
             mode = 'lines', color = I("red"), alpha = 0.7, 
-            symbol=5)%>%layout(title = "Hora vs Cantidad, Accidentes en Ciudad de Medellín",
+            symbol=5)%>%layout(title = "Hora vs Cantidad, Accidentes en Ciudad de MedellÃ­n",
                                autosize = T,
                                showlegend = F)%>%layout(xaxis = list(title="Hora de Accidente"),
                                                         yaxis= list(title="Cantidad de Accidente")) %>%layout(xaxis = list(
