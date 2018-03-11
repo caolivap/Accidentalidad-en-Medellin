@@ -1,8 +1,8 @@
 #cargar base de datos
 data2015 <- read.csv("Datos/Accidentalidad_2015_depurada.csv", encoding="UTF-8")
 data2016 <- read.csv("Datos/Accidentalidad_2016_depurada.csv", encoding="UTF-8")
-data2017 <- read.csv("Datos/Accidentalidad_2017_depurada.csv", encoding="UTF-8")
-
+data2017 <- read.csv("Datos/Accidentalidad_2017_depurada.csv")
+data2017 <-data2017[,-c(1)]
 
 library(shiny)
 library(utf8)
