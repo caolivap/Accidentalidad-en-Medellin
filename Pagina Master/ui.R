@@ -6,9 +6,11 @@ library(leaflet)
 library(leaflet.extras)
 library(rgdal)
 library(raster)
+library(shinycssloaders)
 
 #Base de datos para el MAPA ##################
-BaseFull <- shapefile("Accidentalidad_2017.shp",encoding="UTF-8",use_iconv=TRUE)
+BaseMapa <- shapefile("Accidentalidad_2017.shp",encoding="UTF-8",use_iconv=TRUE)
+BaseHist <- read.csv("Accidentalidad_161718.csv", encoding="UTF-8")
 
 # Define UI for application that draws a histogram
 shinyUI(navbarPage(theme = shinytheme("superhero"), title =  "ACCIDENTALIDAD EN MEDELLIN",
@@ -41,7 +43,7 @@ shinyUI(navbarPage(theme = shinytheme("superhero"), title =  "ACCIDENTALIDAD EN 
                                 # time-consuming.
                                 actionButton("update", "Actualizar")
                                 
-                                ),
+                              ),
                               # Main panel for displaying outputs ----
                               mainPanel(
                                 
@@ -53,9 +55,57 @@ shinyUI(navbarPage(theme = shinytheme("superhero"), title =  "ACCIDENTALIDAD EN 
                                 h4("Observaciones"),
                                 tableOutput("view")
                               )
-                              )
+                            )
                    ),
-                   tabPanel("Inicio2",
+                   tabPanel("Historial",
+                            
+                            column(2,
+                                   # Input: Selector for choosing dataset ----
+                                   selectInput(inputId = "TipoAccidente",
+                                               label = "Tipo de Accidente:",
+                                               choices = c(levels(BaseHist$CLASE), "Todos"),
+                                               selected = "Todos"),
+                                   
+                                   # Input: Selector for choosing dataset ----
+                                   selectInput(inputId = "Dia",
+                                               label = "Dia:",
+                                               choices = c(levels(BaseHist$DIA), "Todos"),
+                                               selected = "Todos"),
+                                   
+                                   # Input: Selector for choosing dataset ----
+                                   selectInput(inputId = "Gravedad",
+                                               label = "Gravedad:",
+                                               choices = c(levels(BaseHist$GRAVEDAD), "Todos"),
+                                               selected = "Todos"
+                                   )    
+                            ),
+                            
+                            column(10,
+                                   plotlyOutput("Histograma")
+                            )
+                            
+                   ),
+                   
+                   tabPanel("Mapa",
+                            
+                            column(2,
+                                   wellPanel(
+                                     selectInput("Gravedad", "Gravedad del accidente",
+                                                 BaseMapa$GRAVEDAD, BaseMapa$GRAVEDAD[0]
+                                     ),
+                                     selectInput("Anio", "Anio",
+                                                 c("2015", "2016", "2017"), "2017"
+                                     )
+                                   )       
+                            ),
+                            
+                            column(10,
+                                   withSpinner(leafletOutput("Mapa"))
+                            )
+                            
+                   ),
+                   
+                   tabPanel("Video",
                             mainPanel(
                               #tags$video(src = "video.mp4", controls = "controls")
                               #tags$video(src = "Datos/video.mp4", type = "video/mp4", width = "500px", height = "500px", autoplay = NA, controls = NA),
@@ -65,25 +115,8 @@ shinyUI(navbarPage(theme = shinytheme("superhero"), title =  "ACCIDENTALIDAD EN 
                               #tags$video(HTML('<iframe width="560" height="315" src="https://www.youtube.com/embed/6F5_jbBmeJU" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>'))
                               tags$img(src = "img.jpg", width = "200px", height = "200px")
                             )
-                   ),
-                   tabPanel("Mapa",
-                            
-                            column(2,
-                                   wellPanel(
-                                     selectInput("Gravedad", "Gravedad del accidente",
-                                                 BaseFull$GRAVEDAD, BaseFull$GRAVEDAD[0]
-                                     ),
-                                     selectInput("Anio", "Anio",
-                                                 c("2015", "2016", "2017"), "2017"
-                                     )
-                                   )       
-                            ),
-                            
-                            column(10,
-                                   leafletOutput("Mapa")
-                            )
-                              
-                            )
                    )
-        )
+                   
+)
+)
 
