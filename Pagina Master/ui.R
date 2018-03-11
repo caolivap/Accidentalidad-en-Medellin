@@ -67,7 +67,7 @@ shinyUI(navbarPage(theme = shinytheme("superhero"), title =  "ACCIDENTALIDAD EN 
                             column(2,
                                    wellPanel(
                                      selectInput("GravedadMapa", "Gravedad del accidente",
-                                                 BaseFull$GRAVEDAD, BaseFull$GRAVEDAD[0]
+                                                 c("HERIDO","MUERTO", "SOLO DAÑOS"), BaseFull$GRAVEDAD[0]
                                      ),
                                      selectInput("AnioMapa", "Anio",
                                                  c("2015", "2016", "2017"), "2017"
