@@ -1,7 +1,8 @@
 library(lubridate)
+library(ggplot2)
+library(plotly)
 
-base <- read.csv("Accidentalidad_2017.csv", encoding="UTF-8")
-base <- base[-c(1,2,3,4,5,8,10,11,12,13,15,16,17)]
+base <- read.csv("Accidentalidad_161718.csv", encoding="UTF-8")
 
 
 shinyUI(fluidPage(
@@ -13,20 +14,20 @@ shinyUI(fluidPage(
       # Input: Selector for choosing dataset ----
       selectInput(inputId = "TipoAccidente",
                   label = "Tipo de Accidente:",
-                  choices = base$CLASE,
-                  base$CLASE[0]),
+                  choices = c(levels(base$CLASE), "Todos"),
+                  selected = "Todos"),
       
       # Input: Selector for choosing dataset ----
       selectInput(inputId = "Dia",
                   label = "Dia:",
-                  choices = levels(base$DIA),
-                  levels(base$DIA)[0]),
+                  choices = c(levels(base$DIA), "Todos"),
+                  selected = "Todos"),
       
       # Input: Selector for choosing dataset ----
       selectInput(inputId = "Gravedad",
                   label = "Gravedad:",
-                  choices = levels(base$GRAVEDAD),
-                  levels(base$GRAVEDAD)[0]
+                  choices = c(levels(base$GRAVEDAD), "Todos"),
+                  selected = "Todos"
                   )
       
 
@@ -35,7 +36,7 @@ shinyUI(fluidPage(
     
     # Main panel for displaying outputs ----
     mainPanel(
-      plotOutput(outputId = "Histograma")
+      plotlyOutput("Histograma")
       
     )
   )
