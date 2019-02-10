@@ -1,3 +1,0 @@
-library(shiny)
-shinyUI(fluidPage(
-))
